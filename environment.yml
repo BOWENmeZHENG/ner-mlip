@@ -1,4 +1,4 @@
-name: llm-mlip-v2-env
+name: ner-mlip-env
 channels:
   - defaults
 dependencies:

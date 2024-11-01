@@ -21,15 +21,15 @@ class ModelArguments:
     )
     database_path: str = field(
         default='./instance/AnnoApp.sqlite',
-        metadata={"help": "Path to database of annotations for texts."}
+        metadata={"help": "Path to database of annotations for MLIP texts (training & ID sets)."}
     )
     database_ood_1_path: str = field(
-        default='./instance/AnnoApp_ood_nanosimulation.sqlite',
-        metadata={"help": "Path to database of annotations for out-of-distribution texts."}
+        default='./instance/AnnoApp_ood_1.sqlite',
+        metadata={"help": "Path to database of annotations for nanomaterial simulation and ML texts (OOD test 1 set)."}
     )
     database_ood_2_path: str = field(
-        default='./instance/AnnoApp_ood_metamaterial.sqlite',
-        metadata={"help": "Path to database of annotations for out-of-distribution texts."}
+        default='./instance/AnnoApp_ood_2.sqlite',
+        metadata={"help": "Path to database of annotations for optical metamaterials texts (OOD test 2 set)."}
     )
 
 @dataclass
@@ -39,12 +39,12 @@ class TrainingArguments:
         metadata={"help": "The output directory for logs."}
     )
     n_epochs: int = field(
-        default=3,
+        default=6,
         metadata={"help": "Total number of training epochs to perform."}
     )
     classes_weights: tuple = field(
-        default=(1., 1., 1., 1., 1., 1., 1., 1.),
-        metadata={"help": "weights for each NER class."}
+        default=(0.5, 1., 1., 1., 1., 1., 0.5, 0.5),
+        metadata={"help": "weights for each NER class. The first entry is the OTHER class"}
     )
     train_batch_size: int = field(
         default=1,
@@ -67,7 +67,7 @@ class TrainingArguments:
     )
     training_percentage: float = field(
         default=0.9,
-        metadata={"help": "Percentage of total data for training."}
+        metadata={"help": "Percentage of total data allocated for training."}
     )
     training_actual: int = field(
         default=72,
