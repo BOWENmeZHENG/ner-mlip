@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+{% block header %}
+  <h1>{% block title %}Annotate{% endblock %}</h1>
+{% endblock %}
+{% block content %}
+  <form method='post'>
+    <style>
+    .button {
+      padding: 4px 8px;
+      margin: 4px 2px;
+      border-color: gray;
+      color: white; 
+    }
+    .button:hover {
+      font-weight : bold; 
+    }
+    .button_MATERIAL {
+      background-color: red; 
+    }
+    .button_MLIP {
+      background-color: blue; 
+    }
+    .button_PROPERTY {
+      background-color: magenta; 
+    }
+    .button_PHENOMENON {
+      background-color: teal; 
+    }
+    .button_SIMULATION {
+      background-color: green; 
+    }
+    .button_VALUE {
+      background-color: indigo; 
+    }
+    .button_APPLICATION {
+      background-color: darkorange; 
+    }
+    .button_UNSELECT {
+      background-color: white; 
+      color: black; 
+    }
+    .button_words {
+      background-color: white; 
+      color: black; 
+    }
+    .button_words:hover {
+      background-color: yellow; 
+    }
+    </style>
+    <div> 
+      <b>Class:&nbsp;</b> 
+      <button type='button' class='button button_MATERIAL' onclick='Select_Func("MATERIAL")'>MATERIAL</button>
+      <button type='button' class='button button_MLIP' onclick='Select_Func("MLIP")'>MLIP</button> 
+      <button type='button' class='button button_PROPERTY' onclick='Select_Func("PROPERTY")'>PROPERTY</button> 
+      <button type='button' class='button button_PHENOMENON' onclick='Select_Func("PHENOMENON")'>PHENOMENON</button> 
+      <button type='button' class='button button_SIMULATION' onclick='Select_Func("SIMULATION")'>SIMULATION</button> 
+      <button type='button' class='button button_VALUE' onclick='Select_Func("VALUE")'>VALUE</button> 
+      <button type='button' class='button button_APPLICATION' onclick='Select_Func("APPLICATION")'>APPLICATION</button> 
+      <button type='button' class='button button_UNSELECT' onclick='Select_Func("UNSELECT")'>UNSELECT</button> 
+    </div>
+    <div>
+      <button id='0' type='button' class='button button_words' onclick='F("0")'>The</button> 
+      <button id='1' type='button' class='button button_words' onclick='F("1")'>use</button> 
+      <button id='2' type='button' class='button button_words' onclick='F("2")'>of</button> 
+      <button id='3' type='button' class='button button_words' onclick='F("3")'>supervised</button> 
+      <button id='4' type='button' class='button button_words' onclick='F("4")'>machine</button> 
+      <button id='5' type='button' class='button button_words' onclick='F("5")'>learning</button> 
+      <button id='6' type='button' class='button button_words' onclick='F("6")'>to</button> 
+      <button id='7' type='button' class='button button_words' onclick='F("7")'>develop</button> 
+      <button id='8' type='button' class='button button_words' onclick='F("8")'>fast</button> 
+      <button id='9' type='button' class='button button_words' onclick='F("9")'>and</button> 
+      <button id='10' type='button' class='button button_words' onclick='F("10")'>accurate</button> 
+      <button id='11' type='button' class='button button_words' onclick='F("11")'>interatomic</button> 
+      <button id='12' type='button' class='button button_words' onclick='F("12")'>potential</button> 
+      <button id='13' type='button' class='button button_words' onclick='F("13")'>models</button> 
+      <button id='14' type='button' class='button button_words' onclick='F("14")'>is</button> 
+      <button id='15' type='button' class='button button_words' onclick='F("15")'>transforming</button> 
+      <button id='16' type='button' class='button button_words' onclick='F("16")'>molecular</button> 
+      <button id='17' type='button' class='button button_words' onclick='F("17")'>and</button> 
+      <button id='18' type='button' class='button button_words' onclick='F("18")'>materials</button> 
+      <button id='19' type='button' class='button button_words' onclick='F("19")'>research</button> 
+      <button id='20' type='button' class='button button_words' onclick='F("20")'>by</button> 
+      <button id='21' type='button' class='button button_words' onclick='F("21")'>greatly</button> 
+      <button id='22' type='button' class='button button_words' onclick='F("22")'>accelerating</button> 
+      <button id='23' type='button' class='button button_words' onclick='F("23")'>atomic</button> 
+      <button id='24' type='button' class='button button_words' onclick='F("24")'>-</button> 
+      <button id='25' type='button' class='button button_words' onclick='F("25")'>scale</button> 
+      <button id='26' type='button' class='button button_words' onclick='F("26")'>simulations</button> 
+      <button id='27' type='button' class='button button_words' onclick='F("27")'>with</button> 
+      <button id='28' type='button' class='button button_words' onclick='F("28")'>little</button> 
+      <button id='29' type='button' class='button button_words' onclick='F("29")'>loss</button> 
+      <button id='30' type='button' class='button button_words' onclick='F("30")'>of</button> 
+      <button id='31' type='button' class='button button_words' onclick='F("31")'>accuracy</button> 
+      <button id='32' type='button' class='button button_words' onclick='F("32")'>.</button> 
+      <button id='33' type='button' class='button button_words' onclick='F("33")'>Three</button> 
+      <button id='34' type='button' class='button button_words' onclick='F("34")'>years</button> 
+      <button id='35' type='button' class='button button_words' onclick='F("35")'>ago</button> 
+      <button id='36' type='button' class='button button_words' onclick='F("36")'>,</button> 
+      <button id='37' type='button' class='button button_words' onclick='F("37")'>Jörg</button> 
+      <button id='38' type='button' class='button button_words' onclick='F("38")'>Behler</button> 
+      <button id='39' type='button' class='button button_words' onclick='F("39")'>published</button> 
+      <button id='40' type='button' class='button button_words' onclick='F("40")'>a</button> 
+      <button id='41' type='button' class='button button_words' onclick='F("41")'>perspective</button> 
+      <button id='42' type='button' class='button button_words' onclick='F("42")'>in</button> 
+      <button id='43' type='button' class='button button_words' onclick='F("43")'>this</button> 
+      <button id='44' type='button' class='button button_words' onclick='F("44")'>journal</button> 
+      <button id='45' type='button' class='button button_words' onclick='F("45")'>providing</button> 
+      <button id='46' type='button' class='button button_words' onclick='F("46")'>an</button> 
+      <button id='47' type='button' class='button button_words' onclick='F("47")'>overview</button> 
+      <button id='48' type='button' class='button button_words' onclick='F("48")'>of</button> 
+      <button id='49' type='button' class='button button_words' onclick='F("49")'>some</button> 
+      <button id='50' type='button' class='button button_words' onclick='F("50")'>of</button> 
+      <button id='51' type='button' class='button button_words' onclick='F("51")'>the</button> 
+      <button id='52' type='button' class='button button_words' onclick='F("52")'>leading</button> 
+      <button id='53' type='button' class='button button_words' onclick='F("53")'>methods</button> 
+      <button id='54' type='button' class='button button_words' onclick='F("54")'>in</button> 
+      <button id='55' type='button' class='button button_words' onclick='F("55")'>this</button> 
+      <button id='56' type='button' class='button button_words' onclick='F("56")'>field</button> 
+      <button id='57' type='button' class='button button_words' onclick='F("57")'>.</button> 
+      <button id='58' type='button' class='button button_words' onclick='F("58")'>In</button> 
+      <button id='59' type='button' class='button button_words' onclick='F("59")'>this</button> 
+      <button id='60' type='button' class='button button_words' onclick='F("60")'>perspective</button> 
+      <button id='61' type='button' class='button button_words' onclick='F("61")'>,</button> 
+      <button id='62' type='button' class='button button_words' onclick='F("62")'>we</button> 
+      <button id='63' type='button' class='button button_words' onclick='F("63")'>provide</button> 
+      <button id='64' type='button' class='button button_words' onclick='F("64")'>an</button> 
+      <button id='65' type='button' class='button button_words' onclick='F("65")'>updated</button> 
+      <button id='66' type='button' class='button button_words' onclick='F("66")'>discussion</button> 
+      <button id='67' type='button' class='button button_words' onclick='F("67")'>of</button> 
+      <button id='68' type='button' class='button button_words' onclick='F("68")'>recent</button> 
+      <button id='69' type='button' class='button button_words' onclick='F("69")'>developments</button> 
+      <button id='70' type='button' class='button button_words' onclick='F("70")'>,</button> 
+      <button id='71' type='button' class='button button_words' onclick='F("71")'>emerging</button> 
+      <button id='72' type='button' class='button button_words' onclick='F("72")'>trends</button> 
+      <button id='73' type='button' class='button button_words' onclick='F("73")'>,</button> 
+      <button id='74' type='button' class='button button_words' onclick='F("74")'>and</button> 
+      <button id='75' type='button' class='button button_words' onclick='F("75")'>promising</button> 
+      <button id='76' type='button' class='button button_words' onclick='F("76")'>areas</button> 
+      <button id='77' type='button' class='button button_words' onclick='F("77")'>for</button> 
+      <button id='78' type='button' class='button button_words' onclick='F("78")'>future</button> 
+      <button id='79' type='button' class='button button_words' onclick='F("79")'>research</button> 
+      <button id='80' type='button' class='button button_words' onclick='F("80")'>in</button> 
+      <button id='81' type='button' class='button button_words' onclick='F("81")'>this</button> 
+      <button id='82' type='button' class='button button_words' onclick='F("82")'>field</button> 
+      <button id='83' type='button' class='button button_words' onclick='F("83")'>.</button> 
+      <button id='84' type='button' class='button button_words' onclick='F("84")'>We</button> 
+      <button id='85' type='button' class='button button_words' onclick='F("85")'>include</button> 
+      <button id='86' type='button' class='button button_words' onclick='F("86")'>in</button> 
+      <button id='87' type='button' class='button button_words' onclick='F("87")'>this</button> 
+      <button id='88' type='button' class='button button_words' onclick='F("88")'>discussion</button> 
+      <button id='89' type='button' class='button button_words' onclick='F("89")'>an</button> 
+      <button id='90' type='button' class='button button_words' onclick='F("90")'>overview</button> 
+      <button id='91' type='button' class='button button_words' onclick='F("91")'>of</button> 
+      <button id='92' type='button' class='button button_words' onclick='F("92")'>three</button> 
+      <button id='93' type='button' class='button button_words' onclick='F("93")'>emerging</button> 
+      <button id='94' type='button' class='button button_words' onclick='F("94")'>approaches</button> 
+      <button id='95' type='button' class='button button_words' onclick='F("95")'>to</button> 
+      <button id='96' type='button' class='button button_words' onclick='F("96")'>developing</button> 
+      <button id='97' type='button' class='button button_words' onclick='F("97")'>machine</button> 
+      <button id='98' type='button' class='button button_words' onclick='F("98")'>-</button> 
+      <button id='99' type='button' class='button button_words' onclick='F("99")'>learned</button> 
+      <button id='100' type='button' class='button button_words' onclick='F("100")'>interatomic</button> 
+      <button id='101' type='button' class='button button_words' onclick='F("101")'>potential</button> 
+      <button id='102' type='button' class='button button_words' onclick='F("102")'>models</button> 
+      <button id='103' type='button' class='button button_words' onclick='F("103")'>that</button> 
+      <button id='104' type='button' class='button button_words' onclick='F("104")'>have</button> 
+      <button id='105' type='button' class='button button_words' onclick='F("105")'>not</button> 
+      <button id='106' type='button' class='button button_words' onclick='F("106")'>been</button> 
+      <button id='107' type='button' class='button button_words' onclick='F("107")'>extensively</button> 
+      <button id='108' type='button' class='button button_words' onclick='F("108")'>discussed</button> 
+      <button id='109' type='button' class='button button_words' onclick='F("109")'>in</button> 
+      <button id='110' type='button' class='button button_words' onclick='F("110")'>existing</button> 
+      <button id='111' type='button' class='button button_words' onclick='F("111")'>reviews</button> 
+      <button id='112' type='button' class='button button_words' onclick='F("112")'>:</button> 
+      <button id='113' type='button' class='button button_words' onclick='F("113")'>moment</button> 
+      <button id='114' type='button' class='button button_words' onclick='F("114")'>tensor</button> 
+      <button id='115' type='button' class='button button_words' onclick='F("115")'>potentials</button> 
+      <button id='116' type='button' class='button button_words' onclick='F("116")'>,</button> 
+      <button id='117' type='button' class='button button_words' onclick='F("117")'>message</button> 
+      <button id='118' type='button' class='button button_words' onclick='F("118")'>-</button> 
+      <button id='119' type='button' class='button button_words' onclick='F("119")'>passing</button> 
+      <button id='120' type='button' class='button button_words' onclick='F("120")'>networks</button> 
+      <button id='121' type='button' class='button button_words' onclick='F("121")'>,</button> 
+      <button id='122' type='button' class='button button_words' onclick='F("122")'>and</button> 
+      <button id='123' type='button' class='button button_words' onclick='F("123")'>symbolic</button> 
+      <button id='124' type='button' class='button button_words' onclick='F("124")'>regression</button> 
+      <button id='125' type='button' class='button button_words' onclick='F("125")'>.</button> 
+    </div>
+    <button type='button' style='width:200px;margin-top:20px;' onclick='show_existing_annotation({{annotation_exist}})'>Load annotation</button>
+    <button type='button' style='width:200px;margin-top:10px;' onclick='saveAnnotation()'>Generate annotation</button>
+    <input style='width:700px;margin-top:10px;' type='text' id='show' value=''/>
+    <button type='button' onclick='copyAnnotation()' style='width:200px;'>Copy annotation</button>
+    <a style='margin-top:20px;'class='action' href='{{ url_for("mlip.update", id=ID) }}'>Finish</a>
+    <script>
+    const annotation = {};
+    function Select_Func(Class) {
+      if  (Class === 'MATERIAL') F = Func_MATERIAL
+      if  (Class === 'MLIP') F = Func_MLIP
+      if  (Class === 'PROPERTY') F = Func_PROPERTY
+      if  (Class === 'PHENOMENON') F = Func_PHENOMENON
+      if  (Class === 'SIMULATION') F = Func_SIMULATION
+      if  (Class === 'VALUE') F = Func_VALUE
+      if  (Class === 'APPLICATION') F = Func_APPLICATION
+      if  (Class === 'UNSELECT') F = Func_UNSELECT
+    }
+    function Func_MATERIAL(id) {
+      document.getElementById(id).style.backgroundColor = 'red';
+      document.getElementById(id).style.color = 'white';
+      annotation[id] = 'MATERIAL';
+    }
+    function Func_MLIP(id) {
+      document.getElementById(id).style.backgroundColor = 'blue';
+      document.getElementById(id).style.color = 'white';
+      annotation[id] = 'MLIP';
+    }
+    function Func_PROPERTY(id) {
+      document.getElementById(id).style.backgroundColor = 'magenta';
+      document.getElementById(id).style.color = 'white';
+      annotation[id] = 'PROPERTY';
+    }
+    function Func_PHENOMENON(id) {
+      document.getElementById(id).style.backgroundColor = 'teal';
+      document.getElementById(id).style.color = 'white';
+      annotation[id] = 'PHENOMENON';
+    }
+    function Func_SIMULATION(id) {
+      document.getElementById(id).style.backgroundColor = 'green';
+      document.getElementById(id).style.color = 'white';
+      annotation[id] = 'SIMULATION';
+    }
+    function Func_VALUE(id) {
+      document.getElementById(id).style.backgroundColor = 'indigo';
+      document.getElementById(id).style.color = 'white';
+      annotation[id] = 'VALUE';
+    }
+    function Func_APPLICATION(id) {
+      document.getElementById(id).style.backgroundColor = 'darkorange';
+      document.getElementById(id).style.color = 'white';
+      annotation[id] = 'APPLICATION';
+    }
+    function Func_UNSELECT(id) {
+      document.getElementById(id).style.backgroundColor = 'white';
+      document.getElementById(id).style.color = 'black';
+      delete annotation[id];
+    }
+    function show_existing_annotation(anno) {
+      for (let [key, Class] of Object.entries(anno)) {
+          Select_Func(Class);
+          F(key);
+      }
+    }
+    function saveAnnotation() {
+      var anno = JSON.stringify(annotation);
+      document.getElementById('show').value = anno;
+    }
+    function copyAnnotation() {
+      var copyText = document.getElementById('show');
+      copyText.select();
+      navigator.clipboard.writeText(copyText.value);
+    }
+    </script>
+  </form>
+{% endblock %}
