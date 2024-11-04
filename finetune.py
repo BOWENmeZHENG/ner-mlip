@@ -96,10 +96,6 @@ class OtherArguments:
         default=True,
         metadata={"help": "Whether to save the prediction results."}
     )
-    view_test: bool = field(
-        default=True,
-        metadata={"help": "Whether to view a random test data."}
-    )
 
 
 def main():
@@ -154,26 +150,6 @@ def main():
         training_args.learning_rate, training_args.n_epochs, training_args.linear_probe,
         plot=other_args.plot, save_model=other_args.save_model, save_results=other_args.save_results
         )
-
-    # Quick view of test annotation
-    if other_args.view_test:
-        sample_test_id = random.randint(0, len(record_list_test) - 1)
-        word_test_list = record_list_test[sample_test_id]['words']
-        predictions_test = pred_test[sample_test_id, :, :].max(dim=0)[1]
-        real_preds_test = predictions_test[:len(word_test_list)]
-        ut.show_pred(real_preds_test, word_test_list)
-
-        sample_ood_1_id = random.randint(0, len(record_list_ood_1) - 1)
-        word_ood_1_list = record_list_ood_1[sample_ood_1_id]['words']
-        predictions_ood_1 = pred_ood_1[sample_ood_1_id, :, :].max(dim=0)[1]
-        real_preds_ood_1 = predictions_ood_1[:len(word_ood_1_list)]
-        ut.show_pred(real_preds_ood_1, word_ood_1_list)
-
-        sample_ood_2_id = random.randint(0, len(record_list_ood_2) - 1)
-        word_ood_2_list = record_list_ood_2[sample_ood_2_id]['words']
-        predictions_ood_2 = pred_ood_2[sample_ood_2_id, :, :].max(dim=0)[1]
-        real_preds_ood_2 = predictions_ood_2[:len(word_ood_2_list)]
-        ut.show_pred(real_preds_ood_2, word_ood_2_list)
 
 if __name__ == "__main__":
     main()
