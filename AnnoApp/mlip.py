@@ -44,7 +44,7 @@ def annotate(id):
     text = get_text(id)
     if request.method == 'GET':
         t = text['body']
-        annotation = text['annotation'] # it's working
+        annotation = text['annotation'] 
         word_list = split_para(t)
         write_anno(f'annotate_{id}', word_list)
         

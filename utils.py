@@ -76,20 +76,9 @@ def scores(index_other, index_pad, y_pred, y):
     indices = (y < index_pad).nonzero(as_tuple=True)
     _, predicted_classes = y_pred[indices[0], :, indices[1]].max(dim=1)
     true_classes = y[indices[0], indices[1]]
-    # unique_values, counts = torch.unique(true_classes, return_counts=True)
     precision = precision_score(true_classes, predicted_classes, labels=list(range(1, 9)), average='weighted')
     recall = recall_score(true_classes, predicted_classes, labels=list(range(1, 9)), average='weighted')
     f1 = f1_score(true_classes, predicted_classes, labels=list(range(1, 9)), average='weighted')
-    # counts: [1, 2, ..., N]
-    # length of counts should be the number of unique values of true_classes and predicted_classes combined
-    # 
-    # print(true_classes)
-    # print(predicted_classes)
-    # print(unique_values)
-    # print(counts)
-    # precision = np.average(precision[1:], weights=counts[1:].numpy())
-    # recall = np.average(recall[1:], weights=counts[1:].numpy())
-    # f1 = np.average(f1[1:], weights=counts[1:].numpy())
     return precision, recall, f1
 
 def preprocess(record_list, classes, tokenizer, batch_size, max_length, test=False):

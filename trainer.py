@@ -26,22 +26,20 @@ def train(model, tokenizer, record_list_train, record_list_test, record_list_ood
             param.requires_grad = False
 
     train_losses = []
-    train_accuracies, train_precisions, train_recalls, train_f1s = [], [], [], []
-    test_accuracies, test_precisions, test_recalls, test_f1s = [], [], [], []
-    ood_1_accuracies, ood_1_precisions, ood_1_recalls, ood_1_f1s = [], [], [], []
-    ood_2_accuracies, ood_2_precisions, ood_2_recalls, ood_2_f1s = [], [], [], []
+    train_precisions, train_recalls, train_f1s = [], [], []
+    test_precisions, test_recalls, test_f1s = [], [], []
+    ood_1_precisions, ood_1_recalls, ood_1_f1s = [], [], []
+    ood_2_precisions, ood_2_recalls, ood_2_f1s = [], [], []
 
     for epoch in range(n_epochs):
         epoch += 1
         train_loss_batch = []
-        train_accuracy_batch = []
         train_precision_batch, train_recall_batch, train_f1_batch = [], [], []
         for b, X in enumerate(data_batches):
             y_pred = model(X, attention_mask=att_mask_batches[b])
             y_pred = torch.swapaxes(y_pred, 1, 2)
             y = target_batches[b]            
             loss = criterion(y_pred, y)
-            # acc, *_ = ut.accuracy(0, len(classes), y_pred, y)
             precision, recall, f1 = ut.scores(0, len(classes), y_pred, y)
 
             optimizer.zero_grad()
@@ -49,13 +47,11 @@ def train(model, tokenizer, record_list_train, record_list_test, record_list_ood
             optimizer.step()
             
             train_loss_batch.append(loss.item())
-            # train_accuracy_batch.append(acc)
             train_precision_batch.append(precision)
             train_recall_batch.append(recall)
             train_f1_batch.append(f1)
         
         train_loss_batch_mean = ut.calc_mean(train_loss_batch)
-        # train_accuracy_batch_mean = ut.calc_mean(train_accuracy_batch)
         train_precision_batch_mean = ut.calc_mean(train_precision_batch)
         train_recall_batch_mean = ut.calc_mean(train_recall_batch)
         train_f1_batch_mean = ut.calc_mean(train_f1_batch)
@@ -64,7 +60,6 @@ def train(model, tokenizer, record_list_train, record_list_test, record_list_ood
         print(f'Mean training recall: {train_recall_batch_mean:.4f}')
         print(f'Mean training f1: {train_f1_batch_mean:.4f}')
         train_losses.append(train_loss_batch_mean)
-        # train_accuracies.append(train_accuracy_batch_mean)
         train_precisions.append(train_precision_batch_mean)
         train_recalls.append(train_recall_batch_mean)
         train_f1s.append(train_f1_batch_mean)
@@ -73,27 +68,22 @@ def train(model, tokenizer, record_list_train, record_list_test, record_list_ood
         print(f'Mean test precision: {precision_test:.4f}')
         print(f'Mean test recall: {recall_test:.4f}')
         print(f'Mean test f1: {f1_test:.4f}')
-        # test_accuracies.append(acc_test)
         test_precisions.append(precision_test)
         test_recalls.append(recall_test)
         test_f1s.append(f1_test)
             
         precision_ood_1, recall_ood_1, f1_ood_1, _, _, _, pred_ood_1, true_ood_1 = testing(model, record_list_ood_1, classes, tokenizer, max_length)
-        # print(f'Mean test_ood accuracy: {acc_ood:.4f}')
         print(f'Mean test_ood_1 precision: {precision_ood_1:.4f}')
         print(f'Mean test_ood_1 recall: {recall_ood_1:.4f}')
         print(f'Mean test_ood_1 f1: {f1_ood_1:.4f}')
-        # ood_accuracies.append(acc_ood)
         ood_1_precisions.append(precision_ood_1)
         ood_1_recalls.append(recall_ood_1)
         ood_1_f1s.append(f1_ood_1)
 
         precision_ood_2, recall_ood_2, f1_ood_2, _, _, _, pred_ood_2, true_ood_2 = testing(model, record_list_ood_2, classes, tokenizer, max_length)
-        # print(f'Mean test_ood accuracy: {acc_ood:.4f}')
         print(f'Mean test_ood_2 precision: {precision_ood_2:.4f}')
         print(f'Mean test_ood_2 recall: {recall_ood_2:.4f}')
         print(f'Mean test_ood_2 f1: {f1_ood_2:.4f}')
-        # ood_accuracies.append(acc_ood)
         ood_2_precisions.append(precision_ood_2)
         ood_2_recalls.append(recall_ood_2)
         ood_2_f1s.append(f1_ood_2)
@@ -108,15 +98,14 @@ def train(model, tokenizer, record_list_train, record_list_test, record_list_ood
 
     if save_results:
         train_losses_np = np.array(train_losses)
-        # train_accuracies_np = np.array(train_accuracies)
         train_precisions_np = np.array(train_precisions)
         train_recalls_np = np.array(train_recalls)
         train_f1s_np = np.array(train_f1s)
-        # test_accuracies_np = np.array(test_accuracies)
+        
         test_precisions_np = np.array(test_precisions)
         test_recalls_np = np.array(test_recalls)
         test_f1s_np = np.array(test_f1s)
-        # ood_accuracies_np = np.array(ood_accuracies)
+        
         ood_1_precisions_np = np.array(ood_1_precisions)
         ood_1_recalls_np = np.array(ood_1_recalls)
         ood_1_f1s_np = np.array(ood_1_f1s)
