@@ -1,6 +1,7 @@
 import logging
 import sys
 import os
+import ast
 from dataclasses import dataclass, field
 import random
 import utils as ut
@@ -12,6 +13,7 @@ warnings.filterwarnings('ignore')
 
 
 CLASSES = {'MATERIAL': 1, 'MLIP': 2, 'PROPERTY': 3, 'PHENOMENON': 4, 'SIMULATION': 5, 'VALUE': 6, 'APPLICATION': 7, 'O': 0}
+WEIGHTS = (0.5, 1., 1., 1., 1., 1., 0.5, 0.5)  # The first entry is the OTHER class
 
 @dataclass
 class ModelArguments:
@@ -41,10 +43,6 @@ class TrainingArguments:
     n_epochs: int = field(
         default=6,
         metadata={"help": "Total number of training epochs to perform."}
-    )
-    classes_weights: tuple = field(
-        default=(0.5, 1., 1., 1., 1., 1., 0.5, 0.5),
-        metadata={"help": "weights for each NER class. The first entry is the OTHER class"}
     )
     train_batch_size: int = field(
         default=1,
@@ -143,12 +141,10 @@ def main():
     model = net.NERBERTModel(modelBERT.base_model, output_size=len(CLASSES)+1)
 
     # Run training
-    pred_test, pred_ood_1, pred_ood_2 = train(
-        model, tokenizerBERT,
-        record_list_train, record_list_test, record_list_ood_1, record_list_ood_2, CLASSES, 
-        training_args.train_batch_size, training_args.seed, training_args.max_seq_length, training_args.classes_weights, 
-        training_args.learning_rate, training_args.n_epochs, training_args.linear_probe,
-        plot=other_args.plot, save_model=other_args.save_model, save_results=other_args.save_results
+    train(model, tokenizerBERT, record_list_train, record_list_test, record_list_ood_1, record_list_ood_2, CLASSES, 
+          training_args.train_batch_size, training_args.seed, training_args.max_seq_length, WEIGHTS, 
+          training_args.learning_rate, training_args.n_epochs, training_args.linear_probe,
+          plot=other_args.plot, save_model=other_args.save_model, save_results=other_args.save_results
         )
 
 if __name__ == "__main__":

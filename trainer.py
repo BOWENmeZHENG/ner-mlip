@@ -9,7 +9,7 @@ import pandas as pd
 import json
 
 def train(model, tokenizer, record_list_train, record_list_test, record_list_ood_1, record_list_ood_2, classes, 
-          batch_size, seed, max_length, class_weights: list, lr, n_epochs, linear_probe=False,
+          batch_size, seed, max_length, class_weights, lr, n_epochs, linear_probe=False,
           plot=True, save_model=True, save_results=True):
     folder = f'{date.today()}_n_{len(record_list_train)}_l_{lr}_lp_{linear_probe}_w_{class_weights}_b_{batch_size}_s_{seed}'
     os.makedirs(f'saved_models/{folder}', exist_ok=True)
