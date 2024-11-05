@@ -40,7 +40,7 @@ def train(model, tokenizer, record_list_train, record_list_test, record_list_ood
             y_pred = torch.swapaxes(y_pred, 1, 2)
             y = target_batches[b]            
             loss = criterion(y_pred, y)
-            precision, recall, f1 = ut.scores(0, len(classes), y_pred, y)
+            precision, recall, f1 = ut.scores(len(classes), y_pred, y)
 
             optimizer.zero_grad()
             loss.backward()
@@ -165,5 +165,5 @@ def testing(model, record_list, classes, tokenizer, max_length):
     with torch.no_grad():
         y_pred_test = model(data_test, attention_mask=att_mask_test)
         y_pred_test = torch.swapaxes(y_pred_test, 1, 2)
-        precision_test, recall_test, f1_test = ut.scores(0, len(classes), y_pred_test, target_test)
+        precision_test, recall_test, f1_test = ut.scores(len(classes), y_pred_test, target_test)
     return precision_test, recall_test, f1_test, y_pred_test, target_test

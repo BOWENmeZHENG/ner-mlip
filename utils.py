@@ -65,7 +65,7 @@ def to_batches(x, batch_size):
     num_batches = math.ceil(x.size()[0] / batch_size)
     return [x[batch_size * y: batch_size * (y+1),:] for y in range(num_batches)]
 
-def scores(index_other, index_pad, y_pred, y):
+def scores(index_pad, y_pred, y):
     indices = (y < index_pad).nonzero(as_tuple=True)
     _, predicted_classes = y_pred[indices[0], :, indices[1]].max(dim=1)
     true_classes = y[indices[0], indices[1]]
