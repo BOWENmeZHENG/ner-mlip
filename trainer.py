@@ -64,7 +64,7 @@ def train(model, tokenizer, record_list_train, record_list_test, record_list_ood
         train_recalls.append(train_recall_batch_mean)
         train_f1s.append(train_f1_batch_mean)
 
-        precision_test, recall_test, f1_test, _, _, _, pred_test, true_test = testing(model, record_list_test, classes, tokenizer, max_length)
+        precision_test, recall_test, f1_test, pred_test, true_test = testing(model, record_list_test, classes, tokenizer, max_length)
         print(f'Mean test precision: {precision_test:.4f}')
         print(f'Mean test recall: {recall_test:.4f}')
         print(f'Mean test f1: {f1_test:.4f}')
@@ -72,7 +72,7 @@ def train(model, tokenizer, record_list_train, record_list_test, record_list_ood
         test_recalls.append(recall_test)
         test_f1s.append(f1_test)
             
-        precision_ood_1, recall_ood_1, f1_ood_1, _, _, _, pred_ood_1, true_ood_1 = testing(model, record_list_ood_1, classes, tokenizer, max_length)
+        precision_ood_1, recall_ood_1, f1_ood_1, pred_ood_1, true_ood_1 = testing(model, record_list_ood_1, classes, tokenizer, max_length)
         print(f'Mean test_ood_1 precision: {precision_ood_1:.4f}')
         print(f'Mean test_ood_1 recall: {recall_ood_1:.4f}')
         print(f'Mean test_ood_1 f1: {f1_ood_1:.4f}')
@@ -80,7 +80,7 @@ def train(model, tokenizer, record_list_train, record_list_test, record_list_ood
         ood_1_recalls.append(recall_ood_1)
         ood_1_f1s.append(f1_ood_1)
 
-        precision_ood_2, recall_ood_2, f1_ood_2, _, _, _, pred_ood_2, true_ood_2 = testing(model, record_list_ood_2, classes, tokenizer, max_length)
+        precision_ood_2, recall_ood_2, f1_ood_2, pred_ood_2, true_ood_2 = testing(model, record_list_ood_2, classes, tokenizer, max_length)
         print(f'Mean test_ood_2 precision: {precision_ood_2:.4f}')
         print(f'Mean test_ood_2 recall: {recall_ood_2:.4f}')
         print(f'Mean test_ood_2 f1: {f1_ood_2:.4f}')
@@ -165,6 +165,5 @@ def testing(model, record_list, classes, tokenizer, max_length):
     with torch.no_grad():
         y_pred_test = model(data_test, attention_mask=att_mask_test)
         y_pred_test = torch.swapaxes(y_pred_test, 1, 2)
-        acc_test, predicted_classes, true_classes = ut.accuracy(0, len(classes), y_pred_test, target_test)
         precision_test, recall_test, f1_test = ut.scores(0, len(classes), y_pred_test, target_test)
-    return precision_test, recall_test, f1_test, acc_test, predicted_classes, true_classes, y_pred_test, target_test
+    return precision_test, recall_test, f1_test, y_pred_test, target_test
